@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz 5</title>
+</head>
+<body>
+
+<script>
+function criarMatrizB(matrizA) {
+    const linhasA = matrizA.length;
+    const colunasA = matrizA[0].length;
+
+    const matrizB = Array.from({ length: colunasA }, () => Array(linhasA).fill(0));
+
+    for (let i = 0; i < linhasA; i++) {
+        for (let j = 0; j < colunasA; j++) {
+            matrizB[j][i] = matrizA[i][j];
+        }
+    }
+
+    return matrizB;
+}
+
+const matrizA = [];
+for (let i = 0; i < 5; i++) {
+    const linha = [];
+    for (let j = 0; j < 6; j++) {
+        const valor = parseInt(prompt("Digite o valor para a posição (" + (i + 1) + "," + (j + 1) + "):"));
+        linha.push(valor);
+    }
+    matrizA.push(linha);
+}
+
+const matrizB = criarMatrizB(matrizA);
+
+
+const divMatrizA = document.createElement("div");
+divMatrizA.innerHTML = "<p>Matriz A:</p><table border='1'>" +
+    matrizA.map(row => "<tr>" + row.map(cell => "<td>" + cell +"</td>").join("") + "</tr>").join("") +
+    "</table>";
+
+const divMatrizB = document.createElement("div");
+divMatrizB.innerHTML = "<p>Matriz B:</p><table border='1'>" +
+    matrizB.map(row => "<tr>" + row.map(cell => "<td>" + cell + "</td>").join("") + "</tr>").join("") +
+    "</table>";
+
+
+document.body.appendChild(divMatrizA);
+document.body.appendChild(divMatrizB);
+</script>
+
+</body>
+</html>

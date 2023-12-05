@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz 8</title>
+</head>
+
+<body>
+
+    <script>
+        const totalProfessores = 50;
+        const totalTurnos = 2;
+        const totalDisciplinas = 7;
+
+        const professores = Array.from({ length: totalProfessores }, () => Array(totalTurnos).fill([]));
+        const disciplinas = Array.from({ length: totalProfessores }, () => Array(totalTurnos).fill([]));
+
+        function cadastrarProfessor(matricula, turno, disciplina) {
+            const indexProfessor = matricula - 1;
+            const indexTurno = ["matutino", "vespertino", "noturno"].indexOf(turno.toLowerCase());
+
+            if (indexProfessor >= 0 && indexProfessor < totalProfessores && indexTurno >= 0 && indexTurno < totalTurnos) {
+                professores[indexProfessor][indexTurno].push(matricula);
+                disciplinas[indexProfessor][indexTurno].push(disciplina);
+
+                alert(`Professor cadastrado com sucesso para a disciplina ${disciplina} no turno ${turno}.`);
+            } else {
+                alert("Matrícula, turno ou disciplina inválidos.");
+            }
+        }
+
+        function consultarProfessor(disciplina, turno) {
+            const indexTurno = ["matutino", "vespertino", "noturno"].indexOf(turno.toLowerCase());
+
+            if (indexTurno >= 0 && indexTurno < totalTurnos) {
+                const professoresDisciplinaTurno = [];
+
+                for (let i = 0; i < totalProfessores; i++) {
+                    if (disciplinas[i][indexTurno].includes(disciplina)) {
+                        professoresDisciplinaTurno.push(i + 1);
+                    }
+                }
+
+                if (professoresDisciplinaTurno.length > 0) {
+                    alert("Professores que ministram " + disciplina + " no turno " + turno + ": " + professoresDisciplinaTurno.join(', '));
+                } else {
+                    alert("Nenhum professor encontrado para a disciplina " + disciplina + " no turno " + turno + ".");
+                }
+            } else {
+                alert("Turno inválido.");
+            }
+        }
+
+        let continua = true;
+
+        while (continua) {
+            const opcao = prompt("Escolha uma opção:\n1 - Cadastrar Professor\n2 - Consultar Professor\n3 - Encerrar Programa");
+
+            switch (opcao) {
+                case "1":
+                    const matricula = parseInt(prompt("Informe a matrícula do professor:"));
+                    const turnoCadastro = prompt("Informe o turno (Matutino, Vespertino, Noturno):");
+                    const disciplinaCadastro = prompt("Informe a disciplina:");
+                    cadastrarProfessor(matricula, turnoCadastro, disciplinaCadastro);
+                    break;
+                case "2":
+                    const disciplinaConsulta = prompt("Informe a disciplina para consulta:");
+                    const turnoConsulta = prompt("Informe o turno para consulta (Matutino, Vespertino, Noturno):");
+                    consultarProfessor(disciplinaConsulta, turnoConsulta);
+                    break;
+                case "3":
+                    continua = false;
+                    break;
+                default:
+                    alert("Opção inválida.");
+            }
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz 9</title>
+</head>
+
+<body>
+
+    <script>
+
+        function criarMatriz(linhas, colunas) {
+            return Array.from({ length: linhas }, () => Array(colunas).fill(0));
+        }
+
+        function imprimirMatriz(matriz) {
+            for (let i = 0; i < matriz.length; i++) {
+                console.log(matriz[i].join(' '));
+            }
+        }
+
+        function inserirNavios(mapa, navios) {
+            for (let i = 0; i < navios.length; i++) {
+                const [linha, coluna] = navios[i];
+                mapa[linha][coluna] = 1; 
+            }
+        }
+
+        function atirar(mapa, tiros) {
+            let pontos = 0;
+
+            for (let i = 0; i < tiros.length; i++) {
+                const [linha, coluna] = tiros[i];
+
+                if (mapa[linha][coluna] === 1) {
+                    pontos += 100;
+                    mapa[linha][coluna] = -1; 
+                } else {
+                    pontos += 70; 
+                }
+            }
+
+            return pontos;
+        }
+
+        function todosNaviosDerrubados(mapa) {
+            for (let i = 0; i < mapa.length; i++) {
+                for (let j = 0; j < mapa[i].length; j++) {
+                    if (mapa[i][j] === 1) {
+                        return false;
+                    }
+                }
+            }
+            return true; 
+        }
+
+        function jogarBatalhaNaval() {
+            const linhas = 20;
+            const colunas = 20;
+
+            const mapaJogador1 = criarMatriz(linhas, colunas);
+            const mapaJogador2 = criarMatriz(linhas, colunas);
+
+            const naviosJogador1 = [];
+            for (let i = 0; i < 10; i++) {
+                let linha, coluna;
+
+                do {
+                    linha = parseInt(prompt("Jogador 1, informe a linha para o navio " + (i + 1) + ":(O máximo de linhas é 20)"));
+                } while (linha < 0 || linha >= linhas);
+
+                do {
+                    coluna = parseInt(prompt("Jogador 1, informe a coluna para o navio " + (i + 1) + ":(O máximo de colunas é 20)"));
+                } while (coluna < 0 || coluna >= colunas);
+
+                naviosJogador1.push([linha, coluna]);
+            }
+
+            inserirNavios(mapaJogador1, naviosJogador1);
+
+            const tirosJogador2 = [];
+            for (let i = 0; i < 10; i++) {
+                let linhaTiro, colunaTiro;
+
+                do {
+                    linhaTiro = parseInt(prompt("Jogador 2, informe a linha para o tiro " + (i + 1) + ":(O máximo de colunas é 20)"));
+                } while (linhaTiro < 0 || linhaTiro >= linhas);
+
+                do {
+                    colunaTiro = parseInt(prompt("Jogador 2, informe a coluna para o tiro " + (i + 1) + ":(O máximo de colunas é 20)"));
+                } while (colunaTiro < 0 || colunaTiro >= colunas);
+
+                tirosJogador2.push([linhaTiro, colunaTiro]);
+            }
+
+            const pontosJogador1 = atirar(mapaJogador1, tirosJogador2);
+
+            const tirosJogador1 = [];
+            for (let i = 0; i < 10; i++) {
+                let linhaTiro, colunaTiro;
+
+                do {
+                    linhaTiro = parseInt(prompt("Jogador 1, informe a linha para o tiro " + (i + 1) + ":(O máximo de colunas é 20)"));
+                } while (linhaTiro < 0 || linhaTiro >= linhas);
+
+                do {
+                    colunaTiro = parseInt(prompt("Jogador 1, informe a coluna para o tiro " + (i + 1) + ":(O máximo de colunas é 20)"));
+                } while (colunaTiro < 0 || colunaTiro >= colunas);
+
+                tirosJogador1.push([linhaTiro, colunaTiro]);
+            }
+
+            const pontosJogador2 = atirar(mapaJogador2, tirosJogador1);
+
+            let vencedor = "Empate";
+            if (pontosJogador1 > pontosJogador2) {
+                vencedor = "Jogador 1";
+            } else if (pontosJogador2 > pontosJogador1) {
+                vencedor = "Jogador 2";
+            }
+
+            document,write("Pontuação Jogador 1: " + pontosJogador1);
+            document,write("Pontuação Jogador 2: " + pontosJogador2);
+            document,write("Vencedor: " + vencedor);
+        }
+
+        jogarBatalhaNaval();
+    </script>
+
+</body>
+
+</html>

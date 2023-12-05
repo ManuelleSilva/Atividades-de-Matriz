@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz 3</title>
+</head>
+
+<body>
+
+    <script>
+
+        function calcularMedia(array) {
+            const soma = array.reduce((total, valor) => total + valor, 0);
+            return array.length > 0 ? soma / array.length : 0;
+        }
+
+        const dadosDosAlunos = [];
+
+        for (let i = 0; i < 100; i++) {
+            const matricula = prompt("Informe a matrícula do aluno " + (i + 1) + ":");
+            const mediaFinal = parseFloat(prompt("Informe a média final do aluno " + (i + 1) + ":"));
+            const porcentagemFrequencia = parseFloat(prompt("Informe a porcentagem de frequência do aluno " + (i + 1) + ":"));
+
+            if (!Number.isNaN(mediaFinal) && !Number.isNaN(porcentagemFrequencia)) {
+                dadosDosAlunos.push([matricula, mediaFinal, porcentagemFrequencia]);
+            } else {
+                alert("Valores inválidos. Informe novamente.");
+                i--;
+            }
+
+            const opcao = prompt("Digite 1 para continuar ou 2 para sair:");
+
+            if (opcao === '2') {
+                break;
+            } else if (opcao !== '1') {
+                alert("Opção inválida. O programa será encerrado.");
+                break;
+            }
+        }
+
+        const totalAlunos = dadosDosAlunos.length;
+        const mediasFinais = dadosDosAlunos.map(aluno => aluno[1]);
+        const porcentagensFrequencia = dadosDosAlunos.map(aluno => aluno[2]);
+
+        const mediaMediasFinais = calcularMedia(mediasFinais);
+        const mediaPorcentagensFrequencia = calcularMedia(porcentagensFrequencia);
+
+        dadosDosAlunos.push(["Quantidade de Alunos Lidos", "Média das Médias Finais", "Média das Porcentagens de Frequência"]);
+        dadosDosAlunos.push([totalAlunos, mediaMediasFinais, mediaPorcentagensFrequencia]);
+
+        document.write("<p>Dados dos Alunos:</p><table border='1'>");
+        for (let i = 0; i < dadosDosAlunos.length; i++) {
+            document.write("<tr>");
+            for (let j = 0; j < dadosDosAlunos[i].length; j++) {
+                document.write("<td>" + dadosDosAlunos[i][j] + "</td>");
+            }
+            document.write("</tr>");
+        }
+        document.write("</table>");
+    </script>
+</body>
+
+</html>

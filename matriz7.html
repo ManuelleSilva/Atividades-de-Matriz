@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz 7</title>
+</head>
+
+<body>
+
+    <script>
+        function calcularMedia(populacoes) {
+            const soma = populacoes.reduce((total, valor) => total + valor, 0);
+            return populacoes.length > 0 ? soma / populacoes.length : 0;
+        }
+
+        const populacaoEstados = [];
+
+        let continuarCadastro = true;
+        while (continuarCadastro) {
+            const populacaoCidades = [];
+            for (let j = 0; j < 5; j++) {
+                const populacao = parseInt(prompt("Informe a população da cidade " + (j + 1) + " do estado " + (populacaoEstados.length + 1) + " (ou deixe em branco para encerrar):"));
+                if (isNaN(populacao)) {
+                    continuarCadastro = false;
+                    break;
+                }
+                populacaoCidades.push(populacao);
+            }
+
+            if (populacaoCidades.length > 0) {
+                populacaoEstados.push(populacaoCidades);
+            }
+        }
+
+        document.write("<p>Resultados:</p>");
+        document.write("<table border='1'>");
+        document.write("<tr><th>Estado</th><th>Maior População</th><th>Menor População</th><th>Média de População</th></tr>");
+
+        for (let i = 0; i < populacaoEstados.length; i++) {
+            const populacoes = populacaoEstados[i];
+            const maiorPopulacao = Math.max(...populacoes);
+            const menorPopulacao = Math.min(...populacoes);
+            const mediaPopulacao = calcularMedia(populacoes);
+
+            document.write("<tr><td>" + (i + 1) + "</td><td>" + maiorPopulacao + "</td><td>" + menorPopulacao + "</td><td>" + mediaPopulacao.toFixed(2) + "</td></tr>");
+        }
+
+        document.write("</table>");
+    </script>
+
+</body>
+
+</html>

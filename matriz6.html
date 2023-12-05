@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz 6</title>
+</head>
+
+<body>
+
+    <script>
+        function calcularMedia(notas) {
+            const soma = notas.reduce((total, valor) => total + valor, 0);
+            return notas.length > 0 ? soma / notas.length : 0;
+        }
+
+        const gabarito = [];
+        const respostasAlunos = [];
+        const notasAlunos = [];
+        const matriculasAprovadas = [];
+
+        for (let i = 0; i < 10; i++) {
+            const resposta = prompt("Informe a resposta correta para a questão " + (i + 1) + ":");
+            gabarito.push(resposta.toUpperCase());
+        }
+
+        let continuarCadastro = true;
+
+        while (continuarCadastro) {
+            const matricula = prompt("Informe a matrícula do aluno: ");
+            const respostas = [];
+            let nota = 0;
+
+            for (let j = 0; j < 10; j++) {
+                const respostaAluno = prompt("Informe a resposta do aluno para a questão " + (j + 1) + ":");
+                respostas.push(respostaAluno.toUpperCase());
+
+                if (respostaAluno.toUpperCase() === gabarito[j]) {
+                    nota += 1;
+                }
+            }
+
+            respostasAlunos.push({ matricula, respostas });
+            notasAlunos.push({ matricula, nota });
+
+            if (nota >= 7) {
+                matriculasAprovadas.push(matricula);
+            }
+
+            continuarCadastro = confirm("Deseja cadastrar mais um aluno?\nClique em OK para continuar ou Cancelar para finalizar.");
+        }
+
+        const notasTurma = notasAlunos.map(aluno => aluno.nota);
+        const mediaTurma = calcularMedia(notasTurma);
+
+        document.write("<p>Resultados:</p>");
+        document.write("<table border='1'>");
+        document.write("<tr><th>Matrícula</th><th>Nota</th><th>Situação</th></tr>");
+
+        for (let i = 0; i < notasAlunos.length; i++) {
+            const aluno = notasAlunos[i];
+            const situacao = aluno.nota >= 7 ? "Aprovado" : "Reprovado";
+
+            document.write("<tr><td>" + aluno.matricula + "</td><td>" + aluno.nota + "</td><td>" + situacao + "</td></tr>");
+        }
+
+        document.write("</table>");
+        document.write("<p>Quantidade de alunos aprovados: " + matriculasAprovadas.length + "</p>");
+        document.write("<p>Média da turma: " + mediaTurma.toFixed(2) + "</p>");
+    </script>
+
+</body>
+
+</html>

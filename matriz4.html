@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matriz 4</title>
+</head>
+
+<body>
+
+    <script>
+
+        const distanciasCapitais = [
+
+            [0, 1134, 1004, 624, 1458],
+            [1134, 0, 429, 434, 1653],
+            [1004, 429, 0, 586, 1763],
+            [624, 434, 586, 0, 1355],
+            [1458, 1653, 1763, 1355, 0]
+        ];
+
+
+        function obterDistancia(capitalOrigem, capitalDestino) {
+            return distanciasCapitais[capitalOrigem][capitalDestino];
+        }
+
+
+        const capitalOrigem = parseInt(prompt("Informe o código da capital de origem (0 a 4):\n[0] - Brasília, [1] - Rio de Janeiro, [2] - São Paulo, [3] - Belo Horizonte, [4] - Salvador"));
+        const capitalDestino = parseInt(prompt("Informe o código da capital de destino (0 a 4):\n[0] - Brasília, [1] - Rio de Janeiro, [2] - São Paulo, [3] - Belo Horizonte, [4] - Salvador"));
+
+
+        if (!isNaN(capitalOrigem) && !isNaN(capitalDestino) &&
+            capitalOrigem >= 0 && capitalOrigem < 5 &&
+            capitalDestino >= 0 && capitalDestino < 5) {
+
+            const distancia = obterDistancia(capitalOrigem, capitalDestino);
+
+
+            document.write("<p>A distância entre as capitais " + capitalOrigem + " e " + capitalDestino + " é " + distancia +"km.</p>");
+        } else {
+
+            alert("Códigos de capital inválidos. Informe novamente.");
+        }
+    </script>
+</body>
+
+</html>
